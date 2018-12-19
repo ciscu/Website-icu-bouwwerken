@@ -2016,6 +2016,10 @@ footer .credits {
 }
 
 @media (max-width: 575px) {
+  #logo-icu{
+
+    display: none;
+  }
   .box-collapse .title-box-d {
     left: 35px;
   }
