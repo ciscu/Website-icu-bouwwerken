@@ -93,7 +93,9 @@ a:hover {
 .color-b {
   color: #14438F;
 }
-
+.color-c {
+  color: #1a5ac3;
+}
 .color-d {
   color: #adadad;
 }
@@ -128,7 +130,10 @@ a:hover {
   background-color: #14438F;
   z-index: 2;
 }
-
+#logo-icu {
+  position: relative;
+  top: -15px;
+}
 /*------/ Bg Image /------*/
 
 .bg-image {
