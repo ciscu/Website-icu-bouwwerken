@@ -1,0 +1,96 @@
+  {% extends "layout.html" %}
+{% block body %}
+<!--/ Intro Single star /-->
+<form class="" action="{{ url_for('nieuwProject', active='projecten')}}" method="post" enctype="multipart/form-data">
+
+<section class="intro-single">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-8">
+        <div class="title-single-box">
+          <h1 class="title-single"><input type="text" name="name" value="" placeholder="Project naam"></h1>
+          <span class="color-text-b"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ Property Single Star /-->
+<section class="property-single nav-arrow-b">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="title-single-box">
+          <h2 class="title-single">Profile Picture</h2>
+          <input type="file" name="profilePic" value="" accept="image/*">
+          <h2 class="title-single">Project Pictures</h2>
+          <input type="file" name="file[]" value="" accept="image/*" multiple="">
+        </div>
+        <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
+        </div>
+        <div class="row justify-content-between">
+          <div class="col-md-5 col-lg-4">
+            <div class="property-price d-flex justify-content-center foo">
+            </div>
+            <div class="property-summary allign-top">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="title-box-d section-t4">
+                    <h3 class="title-d">Samenvatting</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="summary-list">
+                <ul class="list">
+                  <li class="d-flex justify-content-between">
+                    <strong>Stijl:</strong>
+                    <span><input type="text" name="style" value=""></span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Type:</strong>
+                    <span><input type="text" name="type" value=""></span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Werken:</strong>
+                    <span><input type="text" name="contribution" value=""></span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Architect:</strong>
+                    <!-- <span>dropdown</span> -->
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7 col-lg-7 section-md-t3">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="title-box-d">
+                  <h3 class="title-d">Omschrijving</h3>
+                </div>
+              </div>
+            </div>
+            <div class="property-description">
+              <textarea name="description" rows="8" cols="80"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-10 offset-md-1">
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-video" role="tabpanel" aria-labelledby="pills-video-tab">
+            <iframe src="https://www.youtube.com/embed/S0xISkKa0-Q" width="100%" height="460" frameborder="0"
+              webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+    <button type="submit" class="btn btn-a">Maak aan</button>
+
+</section>
+</form>
+<!--/ Property Single End /-->
+{% endblock %}
