@@ -1,4 +1,165 @@
 {% extends "layout.html" %}
 {% block body %}
+<!--/ Intro Single star /-->
+<section class="intro-single">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-8">
+        <div class="title-single-box">
+          <h1 class="title-single">Een passie voor bouwen.</h1>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-4">
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ About Star /-->
+<section class="section-about">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="about-img-box">
+          <img src="{{ url_for('static', filename='img/kantoor.png')}}" alt="" class="img-fluid">
+        </div>
+      </div>
+      <div class="col-md-12 section-t8 justify-content-between">
+        <div class="row">
+          <div class="title-single-box mb-3">
+            <h1 class="title-single">Visie</h1>
+          </div>
+          <div class="col-md-6 col-lg-5">
+          </div>
+            <p class="color-text-b">
+              Een bouwproject moet decennia lang meegaan zonder dat u zich
+               zorgen moet kunnen maken. Omdat wij aan de basis staan van dit
+               proces, staat of valt de algemene kwaliteit bij onze oplevering.
+               Één kleine fout of onoplettendheid geeft problemen en vertraging
+               bij de rest van het project. Met dit oog voor detail en onze
+               25 jaar ervaring maken wij het verschil met andere.
+            </p>
+            <p class="color-text-b">
+              Met kwaliteit als de kernboodschap is ICU trouw gebleven aan de
+               oorspronkelijke visie. We vinden het belangrijk trots te kunnen
+               zijn op het project dat we opleveren. Dit is, volgens ons,
+               de beste manier om klanttevredenheid te garanderen.
+            </p>
+            <p class="color-text-b">
+              Om deze hoge kwaliteit te kunnen garanderen werken we enkel samen
+              met mensen die onze waarden delen. Dit maakt dat ICU een ideale
+              bouwpartner is voor al uw projecten.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ About End /-->
+
+<!--/ Agents Star /-->
+<section class="section-agents section-t8">
+  <div class="container">
+    <div class="row">
+      <div class="title-single-box mb-3">
+        <h1 class="title-single">Team</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card-box-d">
+          <div class="card-img-d">
+            <img src="{{   url_for('static', filename='img/agent-4.jpg') }}" alt="" class="img-d img-fluid">
+          </div>
+          <div class="card-overlay card-overlay-hover">
+            <div class="card-header-d">
+              <div class="card-title-d align-self-center">
+                <h3 class="title-d">
+                  <a href="agent-single.html" class="link-two">Ivo Cuypers
+                    <br> Oprichter</a>
+                </h3>
+              </div>
+            </div>
+            <div class="card-body-d">
+              <p class="content-d color-text-a">
+                Oprichter en mede zaakvoerder. Stampte dit bedrijf eigenhandig
+                uit de grond in 1995. Dezer dagen vindt je hem op het bureau
+                maar als hij de kans ziet gaat hij graag mee helpen op de werf
+              </p>
+              <div class="info-agents color-a">
+                <p>
+                  <strong>Tel: </strong> +32 486 87 75 57</p>
+                <p>
+                  <strong>Email: </strong> info@icubouwwerken.be</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-box-d">
+          <div class="card-img-d">
+            <img src="{{ url_for('static', filename='img/agent-1.jpg') }}" alt="" class="img-d img-fluid">
+          </div>
+          <div class="card-overlay card-overlay-hover">
+            <div class="card-header-d">
+              <div class="card-title-d align-self-center">
+                <h3 class="title-d">
+                  <a href="agent-single.html" class="link-two">Jan Cuypers
+                    <br> Zaakvoerder</a>
+                </h3>
+              </div>
+            </div>
+            <div class="card-body-d">
+              <p class="content-d color-text-a">
+                Tis ma ne arige kwietkop. Een groot geluk dat zijn broer
+                een beetje ne normale kwietkop is.
+              </p>
+              <div class="info-agents color-a">
+                <p>
+                  <strong>Tel: </strong> +32 nog iet, nog iet, not iet</p>
+                <p>
+                  <strong>Email: </strong> info@icubouwwerken.be</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-box-d">
+          <div class="card-img-d">
+            <img src="{{ url_for('static', filename='img/agent-5.jpg') }}" alt="" class="img-d img-fluid">
+          </div>
+          <div class="card-overlay card-overlay-hover">
+            <div class="card-header-d">
+              <div class="card-title-d align-self-center">
+                <h3 class="title-d">
+                  <a href="agent-single.html" class="link-two">Jill Cuyvers
+                    <br> Administratie</a>
+                </h3>
+              </div>
+            </div>
+            <div class="card-body-d">
+              <p class="content-d color-text-a">
+                Jill neemt het alledaagse reilen en zeilen van de papiermolen
+                voor haar rekening. Tot grote bewondering moet zij met al die
+                kwietkoppen samenwerken. RESPECT!
+              </p>
+              <div class="info-agents color-a">
+                <p>
+                  <strong>Tell: </strong> +32 not iet nog iet</p>
+                <p>
+                  <strong>Email: </strong> info@icubouwwerken.be</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ Agents End /-->
 {% endblock %}
   <!--/ Testimonials End /-->

@@ -239,7 +239,7 @@ a:hover {
 }
 
 .section-t4 {
-  padding-top: 4rem;
+  /* padding-top: 4rem; */
 }
 
 .section-t3 {
@@ -1310,7 +1310,7 @@ a:hover {
 }
 
 .card-box-ico {
-  padding: 1rem 3rem 1rem 2.5rem;
+  padding: 1rem 3rem 1rem 0rem;
   /* border: 5px solid #14438F; */
 }
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env python2.7
+import os
 from flask import Flask, jsonify, request, url_for, abort, g, render_template
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
@@ -16,8 +17,8 @@ from redis import Redis
 import time
 from functools import update_wrapper
 import psycopg2
-
-
+from database_setup import Base, Project, Picture, Customer, Architect, projectPicture, customerPicture, architectPicture
+from werkzeug.utils import secure_filename
 #------------------------------------------------------------------------#
 #                     Configuration code                                 #
 #------------------------------------------------------------------------#
@@ -37,16 +38,22 @@ h = httplib2.Http()
 
 
 # Connecting to the database
-# engine = create_engine('postgresql://connection:catalogitems@localhost/catalog')
-# Base.metadata.bind = engine
-# DBSession = sessionmaker(bind=engine)
-# session = DBSession()
+engine = create_engine('sqlite:///icu.db?check_same_thread=False')
+Base.metadata.bind = engine
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
 
 
 # assigning flask object to var
 app = Flask(__name__)
 
+UPLOAD_FOLDER = 'static/img/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 #------------------------------------------------------------------------#
 #                     Routes for the webpages                            #
@@ -117,7 +124,9 @@ def logout():
 ## Main Page ##
 @app.route('/')
 def home():
-    return render_template('index.html', active='home')
+    projects = session.query(Project).all()
+    pictures = session.query(Picture).all()
+    return render_template('index.html', active='home', projecten=projects, pictures=pictures)
 
 @app.route('/info')
 def info():
@@ -125,11 +134,101 @@ def info():
 
 @app.route('/projecten')
 def projecten():
-    return render_template('index.html', active='projecten')
+    projects = session.query(Project).order_by(desc(Project.id)).limit(3)
+    pictures = session.query(Picture).all()
+    return render_template('projecten.html', active='projecten', projecten=projects, pictures=pictures)
+
+@app.route('/projecten/nieuw', methods=['GET', 'POST'])
+def nieuwProject():
+    if request.method == 'POST':
+        newProject = Project(name=request.form['name'], style=request.form['style'], type=request.form['type'], description=request.form['description'], contribution=request.form['contribution'])
+        session.add(newProject)
+        session.commit()
+
+
+        # Handle project pictures
+        files = request.files.getlist("file[]")
+        for file in files:
+            # Check if filename is valid and does not trigger any command
+            filename = secure_filename(file.filename)
+            # Save the file in the img folder
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+            # Add the picture to the database
+            newPic = Picture(path=UPLOAD_FOLDER+filename)
+            session.add(newPic)
+            session.commit()
+
+            # Link the picture to the project
+            getProject = session.query(Project).filter_by(name = request.form['name']).first()
+            getPicture = session.query(Picture).filter_by(path = UPLOAD_FOLDER+filename).first()
+            combine = projectPicture(project_id=getProject.id, picture_id=getPicture.id)
+            session.add(combine)
+            session.commit()
+
+        # Handle Profile pic
+        # Get the picutre from the form
+        file = request.files['profilePic']
+        filename = secure_filename(file.filename)
+
+        # Save the file in the img folder
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        # Add the picture to the database
+        newPic = Picture(path=UPLOAD_FOLDER+filename)
+        session.add(newPic)
+        session.commit()
+
+        # Link the picture as profile picture
+        getProject = session.query(Project).filter_by(name = request.form['name']).first()
+        getProject.profile_pic_id = newPic.id
+        session.add(getProject)
+        session.commit()
+
+        # profiPic = session.query(projectPicture).filter_by(project_id = newProject.id).first()
+        # session.add(newProject)
+        # session.commit()
+
+
+        return redirect(url_for('projecten'), 301)
+    return render_template('nieuwProject.html', active='projecten')
+
+
+@app.route('/projecten/<string:project_name>')
+def showProject(project_name):
+    project = session.query(Project).filter_by(name=project_name).first()
+    pic_ids = session.query(projectPicture).filter_by(project_id=project.id).all()
+    paths = []
+    for picture in pic_ids:
+        paths.append(picture.picture.path)
+    return render_template('project_test.html', active='projecten', project=project, pictures=paths)
+
+@app.route('/projecten/<string:project_name>/delete', methods=['GET','POST'])
+def deleteProject(project_name):
+    project = session.query(Project).filter_by(name=project_name).first()
+    pictures = session.query(projectPicture).filter_by(project_id = project.id)
+    for picture in pictures:
+        session.delete(picture)
+        session.commit()
+    session.delete(project)
+    session.commit()
+    return redirect(url_for('projecten'), 301)
+
+
+@app.route('/projecten/<string:project_name>/edit', methods=['GET','POST'])
+def editProject(project_name):
+    project = session.query(Project).filter_by(name=project_name).first()
+    pic_ids = session.query(projectPicture).filter_by(project_id=project.id).all()
+    paths = []
+    for picture in pic_ids:
+        paths.append(picture.picture.path)
+
+    return render_template('editProject.html', project=project, pictures=paths)
+
 
 @app.route('/bouwdrogers')
 def bouwdrogers():
-    return render_template('index.html', active='bouwdrogers')
+    return render_template('bouwdrogers.html', active='bouwdrogers')
 
 @app.route('/contact')
 def contact():
