@@ -19,6 +19,8 @@ from functools import update_wrapper
 import psycopg2
 from database_setup import Base, Project, Picture, Customer, Architect, projectPicture, customerPicture, architectPicture
 from werkzeug.utils import secure_filename
+from flask_security import Security, SQLAlchemyUserDatastore, \
+    UserMixin, RoleMixin, login_required
 #------------------------------------------------------------------------#
 #                     Configuration code                                 #
 #------------------------------------------------------------------------#
