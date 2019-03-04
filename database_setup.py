@@ -86,5 +86,7 @@ class architectPicture(Base):
     picture = relationship(Picture)
 
 # Configuration
-engine = create_engine('sqlite:///icu.db')
+engine = create_engine('postgresql://icu:Tesswaakthier@localhost/icu')
+# engine = create_engine('sqlite:///icu.db')
+
 Base.metadata.create_all(engine)
